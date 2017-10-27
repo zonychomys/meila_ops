@@ -1,0 +1,63 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<div class="main-content-wrap col-xs-8 col-md-10">
+  <div class="main-content-breadcrumb">
+    <ol class="breadcrumb">
+      <li><a href="{% url "core:Index" %}">控制台</a></li>
+      <li><a href="javascript:;">操作审计</a></li>
+      <li><a href="{% url "audit:AuditExecuteList" status="online" %}">命令执行</a></li>
+    </ol>
+  </div>
+  <div class="main-content">
+    <div class="main-content-title">
+      <h3>命令执行</h3>
+    </div>
+    <div class="main-content-body">
+      <div class="nav-tab-control">
+        <ul class="nav nav-tabs">
+          <li role="presentation" {% if is_active %}class="active"{% endif %}>
+            <a href="{% url "audit:AuditExecuteList" status="online" %}">当前在线</a>
+          </li>
+          <li role="presentation" {% if not is_active %}class="active"{% endif %}>
+            <a href="{% url "audit:AuditExecuteList" status="history" %}">历史记录</a>
+          </li>
+        </ul>
+      </div>
+      <div class="data-list">
+        <table class="table table-striped table-hover">
+          <tr>
+            <th class="text-center">用户</th>
+            <th class="text-center">账号</th>
+            <th class="text-center">资产</th>
+            <th class="text-center">远程IP</th>
+            <th class="text-center">登录时间</th>
+            <th class="text-center">登出时间</th>
+            <th class="text-center">操作</th>
+          </tr>
+          {% for audit in audits.object_list %}
+            <tr>
+              <td class="text-center">{{ audit.user.username }}</td>
+              <td class="text-center">{{ audit.account.username }}</td>
+              <td class="text-center">{{ audit.asset.hostname }}</td>
+              <td class="text-center">{{ audit.remote_ip }}</td>
+              <td class="text-center">{{ audit.start_time|date:"Y-m-d H:i:s" }}</td>
+              <td class="text-center">{{ audit.end_time|date:"Y-m-d H:i:s" }}</td>
+              <td class="text-center">
+                <a class="btn btn-success btn-xs get-audit-execute-detail" data-url="{% url "audit:AuditExecuteDetail" pk=audit.id %}" data-toggle="modal" data-target="#modal">详情</a>
+                {% if audit.is_active %}
+                  <a class="btn btn-danger btn-xs kill-audit-execute-progress" data-url="{% url "audit:AuditExecuteKill" pk=audit.id %}" onclick="return false">下线</a>
+                {% else %}
+                  <a class="btn btn-danger btn-xs delete-single-data" href="{% url "audit:AuditExecuteDelete" pk=audit.id %}" onclick="return false">删除</a>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+      {% include "layouts/pagination.html" with page_obj=audits %}
+      {% include "layouts/modal.html" with modal_title="命令历史记录" %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

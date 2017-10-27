@@ -1,0 +1,83 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<div class="main-content-wrap col-xs-8 col-md-10">
+  <div class="main-content-breadcrumb">
+    <ol class="breadcrumb">
+      <li><a href="{% url "core:Index" %}">控制台</a></li>
+      <li><a href="javascript:;">资产管理</a></li>
+      <li><a href="{% url "asset:AssetGroupUpdate" pk=group.id %}">修改资产组</a></li>
+    </ol>
+  </div>
+  <div class="main-content">
+    <div class="main-content-title">
+      <h3>修改资产组</h3>
+    </div>
+    <div class="main-content-body">
+      <form class="form-horizontal" action="{% url "asset:AssetGroupUpdate" pk=group.id %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group {% if form.name.errors or error_msg %}has-error{% endif %}">
+          <label for="name" class="col-md-1 control-label">资产组名</label>
+          <div class="col-md-4">
+            <input id="name" class="form-control" name="name" type="text" value="{{ group.name }}" placeholder="资产组名">
+          </div>
+          {% if form.name.errors %}
+            {% for error in form.name.errors %}<div class="help-block text-left">{{ error }}</div>{% endfor %}
+          {% elif error_msg %}
+            <div class="help-block text-left">{{ error_msg }}</div>
+          {% endif %}
+        </div>
+        <div class="form-group {% if form.type.errors %}has-error{% endif %}">
+          <label class="col-md-1 control-label">资产类型</label>
+          <div class="col-md-4">
+            <select id="asset-linkage" class="form-control" name="type" readonly="readonly">
+              <option value="{{ group.type }}">{{ group.get_type_display }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group {% if form.desc.errors %}has-error{% endif %}">
+          <label for="desc" class="col-md-1 control-label">描述信息</label>
+          <div class="col-md-4">
+            <input id="desc" class="form-control" name="desc" type="text" value="{{ group.desc }}" placeholder="描述信息">
+          </div>
+          {% if form.desc.errors %}
+            {% for error in form.desc.errors %}<div class="help-block text-left">{{ error }}</div>{% endfor %}
+          {% endif %}
+        </div>
+        <div class="form-group">
+          <label class="col-md-1 control-label">选择资产</label>
+          <div class="col-md-2">
+            <select id="unselected" class="form-control" multiple="multiple" size="15">
+              {% for asset in assets %}
+                <option value="{{ asset.id }}">{{ asset.get_asset_label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-1 text-center">
+            <div class="btn-group-vertical btn-multi-select">
+              <button type="button" class="btn btn-default add-select-option">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+              </button>
+              <button type="button" class="btn btn-default remove-select-option">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+              </button>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <select id="selected" class="form-control" multiple="multiple" size="15" name="assets">
+              {% for asset in group.asset_set.all %}
+                <option value="{{ asset.id }}">{{ asset.get_asset_label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-1 col-md-10">
+            <button type="submit" class="btn btn-success with-multi-select">确认提交</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

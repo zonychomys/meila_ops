@@ -1,0 +1,72 @@
+<div class="main-sidebar-wrap col-xs-4 col-md-2">
+  <div class="panel-group">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <span>用户管理</span>
+        </h4>
+      </div>
+      <div class="panel-body">
+        <ul>
+          <li>
+            <a href="{% url "user:UserGroupList" %}">用户组</a>
+          </li>
+          <li>
+            <a href="{% url "user:UserList" %}">用户</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <span>资产管理</span>
+        </h4>
+      </div>
+      <div class="panel-body">
+        <ul>
+          <li>
+            <a href="{% url "asset:AssetGroupList" %}">资产组</a>
+          </li>
+          <li>
+            <a href="{% url "asset:AssetServerList" %}">服务器</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <span>权限划分</span>
+        </h4>
+      </div>
+      <div class="panel-body">
+        <ul>
+          <li>
+            <a href="{% url "perm:AccountList" %}">系统账户</a>
+          </li>
+          <li>
+            <a href="{% url "perm:PermissionList" %}">权限规则</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <span>操作审计</span>
+        </h4>
+      </div>
+      <div class="panel-body">
+        <ul>
+          <li>
+            <a href="{% url "audit:AuditExecuteList" status="online" %}">命令执行</a>
+          </li>
+          <li>
+            <a href="#">文件传输</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

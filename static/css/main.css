@@ -1,0 +1,21 @@
+.main-content-body {
+  padding: 15px 15px 15px 15px;
+  border: 1px solid #e7eaec;
+  border-radius: 4px;
+}
+.nav-tab-control {
+  padding-bottom: 20px;
+}
+.toolbar {
+  margin-bottom: 15px;
+  height: 34px;
+}
+.toolbar>a {
+  margin-top: 2px;
+}
+.toolbar>form {
+  display: inline-block;
+}
+.btn-multi-select {
+  margin-top: 110px;
+}

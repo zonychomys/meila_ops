@@ -1,0 +1,144 @@
+/* OverRide Bootstrap */
+.breadcrumb {
+  padding: 8px 0;
+  border-radius: 0;
+  border-bottom: 1px solid #e7eaec;
+  background: #fff;
+}
+.dropdown-toggle {
+  margin-right: 15px;
+}
+textarea.form-control {
+  font-size: 12px;
+}
+.form-control:-ms-input-placeholder {
+  color: #b8c7e5;
+  font-weight: 400;
+  opacity: 1;
+}
+.form-control::-webkit-input-placeholder {
+  color: #b8c7e5;
+  font-weight: 400;
+  opacity: 1;
+}
+.form-group {
+  margin-bottom: 20px;
+}
+.input-group-addon {
+  min-width: 85px;
+  padding: 0px;
+  font-size: 12px;
+  background-color: #fff;
+}
+.input-lg {
+  height: 42px;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-color: #e1e6f0;
+  border-radius: 4px;
+}
+.modal-body {
+  height: 500px;
+  overflow: scroll;
+}
+.navbar {
+  height: 50px;
+}
+.navbar-brand {
+  padding: 0 0 0 15px;
+  box-sizing: border-box;
+}
+.navbar-brand:after {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -.25em;
+}
+.navbar-default {
+  background-color: #fff;
+}
+.navbar-fixed-top {
+  border-bottom: 1px solid #08c;
+}
+.navbar-header {
+  min-width: 210px;
+}
+.navbar-right .dropdown-menu {
+  right: 10px;
+}
+.pagination {
+  margin: 15px 0 0;
+}
+.panel {
+  box-shadow: unset;
+}
+.panel-body {
+  padding: 5px;
+  border-top: none !important;
+}
+.panel-body ul {
+  margin-bottom: 0;
+  padding-left: 15px;
+  list-style: none;
+}
+.panel-body ul li {
+  padding: 5px;
+}
+.panel-group {
+  border: 1px solid #bce8f1;
+  border-radius: 4px;
+}
+.panel-group a:hover {
+  text-decoration: none;
+}
+.panel-group .panel {
+  border: none;
+}
+.panel-group .panel+.panel {
+  margin-top: 0;
+}
+.panel-heading {
+  border: none;
+  border-bottom: 1px solid #fff;
+  border-radius: 0;
+}
+.panel-title {
+  font-size: 14px;
+}
+.table {
+  margin-bottom: 0;
+}
+
+
+/* OverRide Bootstrap Third-Party Plugin */
+.bootstrap-select>.dropdown-toggle.bs-placeholder {
+  color: #b8c7e5 !important;
+}
+
+
+/* Extend Bootstrap */
+.btn-button {
+  color: #fff;
+  background-color: #1989fa;
+  border-color: #1989fa;
+}
+.btn-button:hover {
+  background-color: #0577ea;
+  border-color: #0577ea;
+}
+.navbar-logo {
+  display: inline-block;
+  width: 70.8px;
+  height: 35px;
+  background: url(../images/logo.png) no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+}
+.navbar-avatar {
+  width: 30px;
+  height: 30px;
+  margin-top: -6.5px;
+  margin-bottom: -6.5px;
+  border-radius: 50%;
+}

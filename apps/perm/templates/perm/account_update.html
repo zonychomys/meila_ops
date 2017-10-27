@@ -1,0 +1,66 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<div class="main-content-wrap col-xs-8 col-md-10">
+  <div class="main-content-breadcrumb">
+    <ol class="breadcrumb">
+      <li><a href="{% url "core:Index" %}">控制台</a></li>
+      <li><a href="javascript:;">权限划分</a></li>
+      <li><a href="{% url "perm:AccountUpdate" pk=account.id %}">修改账户</a></li>
+    </ol>
+  </div>
+  <div class="main-content">
+    <div class="main-content-title">
+      <h3>修改账户</h3>
+    </div>
+    <div class="main-content-body">
+      <form class="form-horizontal" action="{% url "perm:AccountUpdate" pk=account.id %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group {% if form.servers.errors or error_msg %}has-error{% endif %}">
+          <label class="col-md-1 control-label">服务器</label>
+          <div class="col-md-4">
+            <select class="form-control selectpicker" multiple="multiple" data-live-search="true" data-actions-box="true" title="选择服务器" data-size="5" name="servers">
+              {% for server in account.servers.all %}
+                <option selected value="{{ server.id }}">{{ server.hostname }}</option>
+              {% endfor %}
+              {% for server in servers %}
+                <option value="{{ server.id }}">{{ server.hostname }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% if form.servers.errors %}
+            {% for error in form.servers.errors %}<div class="help-block text-left">{{ error }}</div>{% endfor %}
+          {% elif error_msg %}
+            <div class="help-block text-left">{{ error_msg }}</div>
+          {% endif %}
+        </div>
+        <div class="form-group {% if form.username.errors or form.password.errors %}has-error{% endif %}">
+          <label class="col-md-1 control-label">系统账户</label>
+          <div class="col-md-2">
+            <input class="form-control" name="username" type="text" value="{{ account.username }}" placeholder="账户名称" readonly="readonly">
+          </div>
+          <div class="col-md-2">
+            <input class="form-control" name="password" type="password" value="{{ account.password }}" placeholder="账户密码" autocomplete="new-password">
+          </div>
+          {% if form.username.errors %}
+            {% for error in form.username.errors %}<div class="help-block text-left">{{ error }}</div>{% endfor %}
+          {% elif form.password.errors %}
+            {% for error in form.password.errors %}<div class="help-block text-left">{{ error }}</div>{% endfor %}
+          {% endif %}
+        </div>
+        <div class="form-group">
+          <label class="col-md-1 control-label">描述信息</label>
+          <div class="col-md-4">
+            <input class="form-control" name="desc" type="text" placeholder="描述信息" value="{{ account.desc }}">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-1 col-md-10">
+            <button type="submit" class="btn btn-success with-multi-select">确认提交</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

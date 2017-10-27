@@ -1,0 +1,112 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<div class="main-content-wrap col-xs-8 col-md-10">
+  <div class="main-content-breadcrumb">
+    <ol class="breadcrumb">
+      <li><a href="{% url "core:Index" %}">控制台</a></li>
+      <li><a href="javascript:;">资产管理</a></li>
+      <li><a href="{% url "asset:AssetServerUpdate" pk=server.id %}">修改服务器</a></li>
+    </ol>
+  </div>
+  <div class="main-content">
+    <div class="main-content-title">
+      <h3>修改服务器</h3>
+    </div>
+    <div class="main-content-body">
+      <form class="form-horizontal" action="{% url "asset:AssetServerUpdate" pk=server.id %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group {% if form.hostname.errors or error_msg %}has-error{% endif %}">
+          <label for="hostname" class="col-md-1 control-label">主机名</label>
+          <div class="col-md-4">
+            <input id="hostname" class="form-control" name="hostname" type="text" value="{{ server.hostname }}" placeholder="主机名">
+          </div>
+          {% if form.hostname.errors %}
+            {% for error in form.hostname.errors %}<div class="help-block text-left">{{ error }}</div>{% endfor %}
+          {% elif error_msg %}
+            <div class="help-block text-left">{{ error_msg }}</div>
+          {% endif %}
+        </div>
+        <div class="form-group {% if form.ip.errors %}has-error{% endif %}">
+          <label for="ip" class="col-md-1 control-label">IP地址</label>
+          <div class="col-md-4">
+            <input id="ip" class="form-control" name="ip" type="text" value="{{ server.ip }}" placeholder="IP地址">
+          </div>
+          {% if form.ip.errors %}
+            {% for error in form.ip.errors %}<div class="help-block text-left">{{ error }}</div>{% endfor %}
+          {% endif %}
+        </div>
+        <div class="form-group {% if form.port.errors %}has-error{% endif %}">
+          <label for="port" class="col-md-1 control-label">SSH端口</label>
+          <div class="col-md-4">
+            <input id="port" class="form-control" name="port" type="text" value="{{ server.port }}" placeholder="SSH端口">
+          </div>
+          {% if form.port.errors %}
+            {% for error in form.port.errors %}<div class="help-block text-left">{{ error }}</div>{% endfor %}
+          {% endif %}
+        </div>
+        <div class="form-group {% if form.status.errors %}has-error{% endif %}">
+          <label class="col-md-1 control-label">资产状态</label>
+          <div class="col-md-4">
+            {% for value, label in status_types.items %}
+              <label class="radio-inline">
+                <input type="radio" name="status" value="{{ value }}" {% ifequal server.asset.status value %}checked="checked"{% endifequal %}>
+                <span>{{ label }}</span>
+              </label>
+            {% endfor %}
+          </div>
+          {% if form.status.errors %}
+            {% for error in form.status.errors %}<div class="help-block text-left">{{ error }}</div>{% endfor %}
+          {% endif %}
+        </div>
+        <div class="form-group {% if form.username.errors or form.password.errors %}has-error{% endif %}">
+          <label class="col-md-1 control-label">管理账户</label>
+          <div class="col-md-2">
+            <input class="form-control" name="username" type="text" value="{{ server.adminaccount.username }}" placeholder="账户名称">
+          </div>
+          <div class="col-md-2">
+            <input class="form-control" name="password" type="password" value="{{ server.adminaccount.password }}" placeholder="账户密码" autocomplete="new-password">
+          </div>
+          {% if form.username.errors %}
+            {% for error in form.username.errors %}<div class="help-block text-left">{{ error }}</div>{% endfor %}
+          {% elif form.password.errors %}
+            {% for error in form.password.errors %}<div class="help-block text-left">{{ error }}</div>{% endfor %}
+          {% endif %}
+        </div>
+        <div class="form-group">
+          <label class="col-md-1 control-label">资产组</label>
+          <div class="col-md-2">
+            <select id="unselected" class="form-control" multiple="multiple" size="15">
+              {% for group in groups %}
+                <option value="{{ group.id }}">{{ group.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-1 text-center">
+            <div class="btn-group-vertical btn-multi-select">
+              <button type="button" class="btn btn-default add-select-option">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+              </button>
+              <button type="button" class="btn btn-default remove-select-option">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+              </button>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <select id="selected" class="form-control" multiple="multiple" size="15" name="groups">
+              {% for group in server.asset.groups.all %}
+                <option value="{{ group.id }}">{{ group.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-1 col-md-10">
+            <button type="submit" class="btn btn-success with-multi-select">确认提交</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

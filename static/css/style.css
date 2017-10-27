@@ -1,0 +1,26 @@
+/* Global StyleSheet */
+body {
+  font-family: "Consolas","WenQuanYi MicroHei","Microsoft YaHei",sans-serif;
+  padding-top: 70px;
+}
+select[multiple] option {
+  height: 18px;
+  padding: 0px 2px;
+}
+.icon {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background-image: url(../images/global-icons.png);
+  border: 1px solid #ebf0fa;
+  border-radius: 50%;
+}
+.icon-qq {
+  background-position: -1px 0px;
+}
+.icon-wechat {
+  background-position: -51px 0px;
+}
+.icon-github {
+  background-position: -101px 0px;
+}

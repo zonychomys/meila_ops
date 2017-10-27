@@ -1,0 +1,9 @@
+env/
+migrations/
+.idea/
+
+*.pyc
+*.swp
+*.swo
+
+settings.py

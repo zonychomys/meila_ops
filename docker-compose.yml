@@ -1,0 +1,22 @@
+version: '3'
+services:
+  meila_ops:
+    container_name: 'meila_ops'
+    build: .
+    image: 'meila_ops'
+    restart: 'always'
+    environment:
+      MYSQL_DBNAME: 'meila_ops'
+      MYSQL_USER: 'root'
+      MYSQL_PASS: ''
+      MYSQL_HOST: 'localhost'
+      MYSQL_PORT: '3306'
+      EMAIL_HOST: 'localhost'
+      EMAIL_PORT: '25'
+      EMAIL_USER: 'root@localhost'
+      EMAIL_PASS: ''
+      EMAIL_USE_TLS: 'False'
+      EMAIL_TIMEOUT: '5'
+    ports:
+      - '2226:2226'
+      - '2227:2227'

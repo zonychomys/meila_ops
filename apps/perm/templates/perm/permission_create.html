@@ -1,0 +1,100 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<div class="main-content-wrap col-xs-8 col-md-10">
+  <div class="main-content-breadcrumb">
+    <ol class="breadcrumb">
+      <li><a href="{% url "core:Index" %}">控制台</a></li>
+      <li><a href="javascript:;">权限划分</a></li>
+      <li><a href="{% url "perm:PermissionCreate" %}">添加规则</a></li>
+    </ol>
+  </div>
+  <div class="main-content">
+    <div class="main-content-title">
+      <h3>添加规则</h3>
+    </div>
+    <div class="main-content-body">
+      <form class="form-horizontal" action="{% url "perm:PermissionCreate" %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group {% if form.name.errors or error_msg %}has-error{% endif %}">
+          <label class="col-md-1 control-label">规则名称</label>
+          <div class="col-md-4">
+            <input class="form-control" name="name" type="text" placeholder="规则名称">
+          </div>
+          {% if form.name.errors %}
+            {% for error in form.name.errors %}<div class="help-block text-left">{{ error }}</div>{% endfor %}
+          {% elif error_msg %}
+            <div class="help-block text-left">{{ error_msg }}</div>
+          {% endif %}
+        </div>
+        <div class="form-group {% if form.users.errors %}has-error{% endif %}">
+          <label class="col-md-1 control-label">用户</label>
+          <div class="col-md-4">
+            <select class="form-control selectpicker" multiple="multiple" data-live-search="true" data-actions-box="true" title="选择用户" data-size="5" name="users">
+              {% for user in users %}
+                <option value="{{ user.id }}">{{ user.username }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% if form.users.errors %}
+            {% for error in form.users.errors %}<div class="help-block text-left">{{ error }}</div>{% endfor %}
+          {% endif %}
+        </div>
+        <div class="form-group {% if form.user_groups.errors %}has-error{% endif %}">
+          <label class="col-md-1 control-label">用户组</label>
+          <div class="col-md-4">
+            <select class="form-control selectpicker" multiple="multiple" data-live-search="true" data-actions-box="true" title="选择用户组" data-size="5" name="user_groups">
+              {% for group in user_groups %}
+                <option value="{{ group.id }}">{{ group.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% if form.user_groups.errors %}
+            {% for error in form.user_groups.errors %}<div class="help-block text-left">{{ error }}</div>{% endfor %}
+          {% endif %}
+        </div>
+        <div class="form-group {% if form.assets.errors %}has-error{% endif %}">
+          <label class="col-md-1 control-label">资产</label>
+          <div class="col-md-4">
+            <select class="form-control selectpicker" multiple="multiple" data-live-search="true" data-actions-box="true" title="选择资产" data-size="5" name="assets">
+              {% for asset in assets %}
+                <option value="{{ asset.id }}">{{ asset.hostname }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% if form.assets.errors %}
+            {% for error in form.assets.errors %}<div class="help-block text-left">{{ error }}</div>{% endfor %}
+          {% endif %}
+        </div>
+        <div class="form-group {% if form.asset_groups.errors %}has-error{% endif %}">
+          <label class="col-md-1 control-label">资产组</label>
+          <div class="col-md-4">
+            <select class="form-control selectpicker" multiple="multiple" data-live-search="true" data-actions-box="true" title="选择资产组" data-size="5" name="asset_groups">
+              {% for group in asset_groups %}
+                <option value="{{ group.id }}">{{ group.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% if form.asset_groups.errors %}
+            {% for error in form.asset_groups.errors %}<div class="help-block text-left">{{ error }}</div>{% endfor %}
+          {% endif %}
+        </div>
+        <div class="form-group {% if form.desc.errors %}has-error{% endif %}">
+          <label class="col-md-1 control-label">描述信息</label>
+          <div class="col-md-4">
+            <input class="form-control" name="desc" type="text" placeholder="描述信息">
+          </div>
+          {% if form.desc.errors %}
+            {% for error in form.desc.errors %}<div class="help-block text-left">{{ error }}</div>{% endfor %}
+          {% endif %}
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-1 col-md-10">
+            <button type="submit" class="btn btn-success">确认提交</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}
